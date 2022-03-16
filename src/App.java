@@ -4,6 +4,8 @@ import java.util.List;
 class App {
   public static void main(String[] args) {
     App app = new App();
+
+    // Exercicio 1
     List <Integer> list1 = app.generateList(32); // caso 1
     List <Integer> list2 = app.generateList(1024); // caso 2
     List <Integer> list3 = app.generateList(1048576); // caso
@@ -16,9 +18,26 @@ class App {
     System.out.println("Caso 2: " + time2 + " ms");
     System.out.println("Caso 3: " + time3 + " ms");
 
+    // Exercicio 2
+    int [] A = app.sort(32);
+    int [] B = app.sort(2048);
+    int [] C = app.sort(1048576);
+
+    app.maxVal1(A, A.length);
+    app.maxVal1(B, B.length);
+    app.maxVal1(C, C.length);
+
   }
 
-  // count time function in milliseconds
+  public int[] sort(int n) {
+    int [] A = new int[n];
+    for (int i = 0; i < A.length; i++) {
+      A[i] = (int) (Math.random() * 1024);
+    }
+
+    return A;
+  }
+
   public long countTime(Runnable r) {
     long start = System.currentTimeMillis();
     r.run();
@@ -71,5 +90,19 @@ class App {
     }
 
     return result;
+  }
+
+ // Exercicio 2
+  public void maxVal1(int[] A, int n) {
+    int max = A[0];
+    int count = 0;
+    for (int i = 1; i < n; i++) {
+      if( A[i] > max ) {
+        count++;
+        max = A[i];
+      }
+    }
+
+    System.out.println("O maior valor é " + max + " e apareceu " + count + " vezes");
   }
 }
