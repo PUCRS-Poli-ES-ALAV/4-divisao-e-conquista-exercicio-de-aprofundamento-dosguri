@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.max;
+
 class App {
   public static void main(String[] args) {
     App app = new App();
@@ -27,6 +29,18 @@ class App {
     app.maxVal1(B, B.length);
     app.maxVal1(C, C.length);
 
+    // Exercicio 3
+    long time4 = app.countTime(() -> app.maxVal2(A, 0, A.length-1));
+    long time5 = app.countTime(() -> app.maxVal2(B, 0, B.length-1));
+    long time6 = app.countTime(() -> app.maxVal2(C, 0, C.length-1));
+
+    int[] case1 = app.maxVal2(A, 0, A.length-1);
+    int [] case2 = app.maxVal2(B, 0, B.length-1);
+    int [] case3 = app.maxVal2(C, 0, C.length-1);
+
+    System.out.println("Caso 1: " + time4 + " ms" + " Valor Maximo: " + case1[0] + " Numero de vezes iteração: " + case1[1]);
+    System.out.println("Caso 2: " + time5 + " ms" + " Valor Maximo: " + case2[0] + " Numero de vezes iteração: " + case2[1]);
+    System.out.println("Caso 3: " + time6 + " ms" + " Valor Maximo: " + case3[0] + " Numero de vezes iteração: " + case3[1]);
   }
 
   public int[] sort(int n) {
@@ -104,5 +118,26 @@ class App {
     }
 
     System.out.println("O maior valor é " + max + " e apareceu " + count + " vezes");
+  }
+
+  // Exercicio 3
+  static int[] maxVal2(int[] A, int init, int end) {
+    int count = 0;
+    if (end - init <= 1) {
+      int[] response  = new int[2];
+      response[0] = max(A[init], A[end]);
+      response[1] = count;
+      return response;
+    } else {
+      count++;
+      int m = (init + end)/2;
+      int[] v1 = maxVal2(A,init,m);
+      int[] v2 = maxVal2(A,m+1,end);
+
+      int[] response  = new int[2];
+      response[0] = max(v1[0], v2[0]);
+      response[1] = count;
+      return response;
+    }
   }
 }
